@@ -14,7 +14,7 @@ class ChatBar extends Component {
 
   PressEnter = (event) => {
     if (event.key === 'Enter') {
-      return this.onMessage(event);
+      this.onMessage(event);
     }
   }
 
