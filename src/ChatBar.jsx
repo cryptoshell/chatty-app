@@ -1,20 +1,31 @@
 import React, {Component} from 'react';
 
 class ChatBar extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
   
     this.onMessage = this.onMessage.bind(this);
+    this.onUser = this.onUser.bind(this);
   }
 
   onMessage(event) {
-    this.props.onNewMessage(event.target.value);
+    this.props.addMessage(event.target.value);
     event.target.value = '';
   }
 
-  PressEnter = (event) => {
+  onUser(event) {
+    this.props.addUser(event.target.value);
+  }
+
+  EnterMessage = (event) => {
     if (event.key === 'Enter') {
       this.onMessage(event);
+    }
+  }
+
+  UserHandler = (event) => {
+     if (event.key === 'Enter') {
+      this.onUser(event);
     }
   }
 
@@ -22,8 +33,8 @@ class ChatBar extends Component {
     console.log("Rendering <ChatBar/>");
     return (
       <footer className="chatbar">
-        <input className="chatbar-username" placeholder={this.props.currentUser.name} />
-        <input onKeyPress={this.PressEnter} className="chatbar-message" placeholder="Type a message and hit ENTER" />
+        <input onKeyPress={this.UserHandler} className="chatbar-username" placeholder={this.props.currentUser.name} />
+        <input onKeyPress={this.EnterMessage} className="chatbar-message" placeholder="Type a message and hit ENTER" />
       </footer>
     );
   }
