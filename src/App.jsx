@@ -8,29 +8,50 @@ class App extends Component {
     super(props);
     this.socket;
     this.state = {
-      currentUser: {name: 'Bob'},
-      messages: []
+      currentUser: {name: 'Anonymous'},
+      messages: [],
+      userCount: 0
     };
     this.addMessage = this.addMessage.bind(this);
     this.addUser = this.addUser.bind(this);
   }
 
   componentDidMount() {
-    this.socket = new WebSocket('ws://localhost:3001/');
-    console.log('Connected to server');
     console.log('componentDidMount <App />');
-
+    this.socket = new WebSocket('ws://localhost:3001/');
+    
+    this.socket.onopen = (event) => {
+      console.log('Connected to server');
+    };
+    
     this.socket.onmessage = (event) => {
-      // console.log(event);
-      const newMessage = JSON.parse(event.data);
-      const messages = this.state.messages.concat(newMessage);
-      this.setState({messages: messages});
+      // If incoming data is a number then update userCount
+      if(typeof JSON.parse(event.data) == 'number'){
+        const userCount = JSON.parse(event.data);
+        this.setState({userCount: userCount})
+      } else { // Else incoming data is a string
+      const data = JSON.parse(event.data);
+        switch(data.type) {
+          case 'incomingMessage':
+            let messages = this.state.messages.concat(data);
+            this.setState({messages: messages});
+            break;
+          case 'incomingNotification':
+            let notifications = this.state.messages.concat(data);
+            console.log(data);
+            this.setState({messages: notifications});
+            break;
+          default:
+            throw new Error('Unknown event type', data.type);
+        }
+      }
     };
   }
 
   addMessage(content) {
     const newMessage = {
       username: this.state.currentUser.name, 
+      type: 'postMessage',
       content: content
     };
     this.socket.send(JSON.stringify(newMessage));
@@ -38,7 +59,9 @@ class App extends Component {
 
   addUser(user) {
     const updateUser = {
-      name: user
+      name: user,
+      type: 'postNotification',
+      content: `${this.state.currentUser.name} has changed their name to ${user}.`
     }
     this.setState({currentUser: updateUser});
     this.socket.send(JSON.stringify(updateUser));
@@ -48,6 +71,10 @@ class App extends Component {
     console.log('Rendering <App/>');
     return (
       <div>
+        <nav className="navbar">
+          <a href="/" className="navbar-brand">Chatty</a>
+          <span className="userCount">{this.state.userCount} users online</span>  
+        </nav>
         <ChatBar addMessage={this.addMessage} addUser={this.addUser} currentUser={this.state.currentUser} />
         <MessageList messages={this.state.messages} />
       </div>
