@@ -38,7 +38,6 @@ class App extends Component {
             break;
           case 'incomingNotification':
             let notifications = this.state.messages.concat(data);
-            console.log(data);
             this.setState({messages: notifications});
             break;
           default:
