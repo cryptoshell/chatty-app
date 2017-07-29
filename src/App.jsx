@@ -26,18 +26,18 @@ class App extends Component {
     
     this.socket.onmessage = (event) => {
       // If incoming data is a number then update userCount
-      if(typeof JSON.parse(event.data) == 'number'){
-        const userCount = JSON.parse(event.data);
-        this.setState({userCount: userCount})
-      } else { // Else incoming data is a string
+      if (typeof JSON.parse(event.data) == 'number'){ 
+          const userCount = JSON.parse(event.data);
+          this.setState({userCount: userCount})
+      } else { // Else incoming data is a string or message
       const data = JSON.parse(event.data);
         switch(data.type) {
           case 'incomingMessage':
-            let messages = this.state.messages.concat(data);
+            const messages = this.state.messages.concat(data);
             this.setState({messages: messages});
             break;
           case 'incomingNotification':
-            let notifications = this.state.messages.concat(data);
+            const notifications = this.state.messages.concat(data);
             this.setState({messages: notifications});
             break;
           default:
@@ -72,7 +72,7 @@ class App extends Component {
       <div>
         <nav className="navbar">
           <a href="/" className="navbar-brand">Chatty</a>
-          <span className="userCount">{this.state.userCount} users online</span>  
+          <span className="userCount"><marquee>{this.state.userCount} 👤 online</marquee></span>
         </nav>
         <ChatBar addMessage={this.addMessage} addUser={this.addUser} currentUser={this.state.currentUser} />
         <MessageList messages={this.state.messages} />

@@ -14,7 +14,11 @@ class ChatBar extends Component {
   }
 
   onUser(event) {
+    if (!event.target.value) {
+      event.target.value = 'Anonymous';
+    } else {
     this.props.addUser(event.target.value);
+    }
   }
 
   EnterMessage = (event) => {

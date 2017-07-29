@@ -6,14 +6,14 @@ class Message extends Component {
     if(this.props.username) {
       return (
         <div className="message">
-          <span className="message-username">{this.props.username}</span>
-          <span className="message-content">{this.props.message}</span>
+          <span className="message-username" style={this.props.color}>{this.props.username}</span>
+          <span className="message-content">{this.props.content}</span>
         </div>
       );
     } else {
       return (
         <div className="message system">
-          {this.props.message}
+          {this.props.content}
         </div>
       );
     }

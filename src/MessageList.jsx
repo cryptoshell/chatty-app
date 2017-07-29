@@ -12,9 +12,9 @@ class MessageList extends Component {
       return <Message 
       key={message.id}
       username={message.username} 
-      message={message.content} />
+      content={message.content}
+      color={message.color} />
     });
-
     return (
       <main className="messages">
         {messages}           

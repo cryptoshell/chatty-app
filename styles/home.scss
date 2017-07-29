@@ -1,25 +1,25 @@
 body {
-background: white;
+background: #eee;
 color: black;
-font-family: 'Open Sans', sans-serif;
-font-size: 14px;
+font-family: 'Nothing You Could Do', sans-serif;
+font-size: 20px;
 margin: 70px 0;
 }
 
 .chatbar {
-background: tomato;
+background: black;
 border-top: 1px solid black;
 bottom: 0;
 display: flex;
 left: 0;
-padding: 5px;
+padding: 10px;
 position: fixed;
 right: 0;
 }
 
 .chatbar-message,
 .chatbar-username {
-border: 1px solid black;
+border: 3px solid mediumaquamarine;
 display: block;
 height: 40px;
 line-height: 40px;
@@ -41,14 +41,17 @@ padding: 5px;
 }
 
 .message.system {
+font-family: "Open Sans", sans-serif;
 font-style: italic;
+font-size: 14px;
 padding: 5px 20px;
 }
 
 .message-content,
 .message-username {
-overflow: hidden;
+font-family: "Open Sans", sans-serif;
 margin: 5px;
+overflow: hidden;
 padding: 0 10px;
 }
 
@@ -62,9 +65,9 @@ font-weight: 700;
 }
 
 .navbar {
-background: tomato;
+background: black;
 border-bottom: 1px solid black;
-height: 60px;
+height: 70px;
 left: 0;
 padding: 0 10px;
 position: fixed;
@@ -73,19 +76,23 @@ top: 0;
 }
 
 .navbar-brand {
-color: inherit;
+color: white;
 display: block;
 float: left;
 font-weight: 700;
-font-size: 28px;
+font-size: 35px;
 height: 60px;
 line-height: 60px;
-padding: 0 10px;
+padding: 3px 15px;
 text-decoration: none;
+text-shadow: 1px 4px mediumaquamarine;
 }
 
 span.userCount {
+  color: white;
   float: right;
-  font-size: 20px;
-  padding: 20px;
+  font-family: 'Open Sans';
+  font-size: 15px;
+  padding: 25px;
+  width: 120px;
 }
