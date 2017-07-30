@@ -16,7 +16,7 @@ Chatty allows users to communicate with each other without having to register ac
 
 ## Stack
 
-- Webpack with Babel, JSX, ES6, webpack dev server (comes with boilerplate)
+- Webpack with Babel, JSX, ES6, webpack dev server
 - WebSockets using Node package ws on the server-side, and native WebSocket on client side
 - ReactJS
 
