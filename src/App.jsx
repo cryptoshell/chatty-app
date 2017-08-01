@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 // import .jsx files that are used in App.jsx
 import ChatBar from './ChatBar.jsx';
 import MessageList from './MessageList.jsx';
+import NavBar from './NavBar.jsx';
 
 // Class App receives response from server
 // and passes it down to ChatBar, MessageList (and Message) components
@@ -76,10 +77,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <nav className="navbar">
-          <a href="/" className="navbar-brand">Chatty</a>
-          <span className="userCount"><marquee>{this.state.userCount} 👤 online</marquee></span>
-        </nav>
+        <NavBar userCount={this.state.userCount} />
         <ChatBar addMessage={this.addMessage} addUser={this.addUser} currentUser={this.state.currentUser} />
         <MessageList messages={this.state.messages} />
       </div>
