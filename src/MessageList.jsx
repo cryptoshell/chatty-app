@@ -2,12 +2,14 @@ import React, {Component} from 'react';
 
 import Message from './Message.jsx';
 
+// Class MessageList renders message block
 class MessageList extends Component {
   constructor() {
     super();
   }
   render() {
-    console.log("Rendering <MessageList/>");
+    // Maps through messages array and passes props object argument with data
+    // returning the React element 'Message'
     const messages = this.props.messages.map(message => {
       return <Message 
       key={message.id}

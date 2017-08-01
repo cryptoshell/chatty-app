@@ -1,28 +1,31 @@
 import React, {Component} from 'react';
 
+// import .jsx files that are used in App.jsx
 import ChatBar from './ChatBar.jsx';
 import MessageList from './MessageList.jsx';
 
+// Class App receives response from server
+// and passes it down to ChatBar, MessageList (and Message) components
+// via props
 class App extends Component {
   constructor(props) {
     super(props);
     this.socket;
+    // Set initial state, incl. user, message, number of users
     this.state = {
       currentUser: {name: 'Anonymous'},
       messages: [],
       userCount: 0
     };
+
+    // Bind this-context to functions defined below
     this.addMessage = this.addMessage.bind(this);
     this.addUser = this.addUser.bind(this);
   }
 
+  // After mounting
   componentDidMount() {
-    console.log('componentDidMount <App />');
     this.socket = new WebSocket('ws://localhost:3001/');
-    
-    this.socket.onopen = (event) => {
-      console.log('Connected to server');
-    };
     
     this.socket.onmessage = (event) => {
       // If incoming data is a number then update userCount
@@ -31,6 +34,7 @@ class App extends Component {
           this.setState({userCount: userCount})
       } else { // Else incoming data is a string or message
       const data = JSON.parse(event.data);
+        // Depending on the message type
         switch(data.type) {
           case 'incomingMessage':
             const messages = this.state.messages.concat(data);
@@ -47,6 +51,7 @@ class App extends Component {
     };
   }
 
+  // Function to create new message with data returned from server
   addMessage(content) {
     const newMessage = {
       username: this.state.currentUser.name, 
@@ -56,6 +61,7 @@ class App extends Component {
     this.socket.send(JSON.stringify(newMessage));
   }
 
+  // Function to add user with user-data returned from server
   addUser(user) {
     const updateUser = {
       name: user,
@@ -66,8 +72,8 @@ class App extends Component {
     this.socket.send(JSON.stringify(updateUser));
   }
 
+  // Render page and pass in data via props
   render() {
-    console.log('Rendering <App/>');
     return (
       <div>
         <nav className="navbar">
