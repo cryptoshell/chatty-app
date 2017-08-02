@@ -36,11 +36,11 @@ Chatty allows users to communicate with each other without having to register ac
 - ws
 - node-uuid
 
-## Project Setup Instructions
+## Setup Instructions
 
-1. clone this repo
+1. Clone this repo
 2. cd into your cloned directory
 3. npm start (it should print 'Running at http://0.0.0.0:3000')
-4. in a new tab in your terminal, cd into your [cloned directory]/chatty_server/
+4. In a new tab in your terminal, cd into your [cloned directory]/chatty_server/
 5. npm start (it should print 'Listening on 3001')
-6. open http://0.0.0.0:3000 in your browser to use the app
+6. Type http://0.0.0.0:3000 into your browser to use the app
